@@ -8,22 +8,27 @@ def softmax(x: list) -> np.ndarray:
     x = np.asarray(x,dtype=float)
 
     
-    if x.ndim == 1 :
+    # if x.ndim == 1 :
+    #     max_x = np.max(x)
+    #     numerator = np.exp(x - max_x)
+    #     denominator_exponent = np.exp(x- max_x)
+    #     prob = numerator / np.sum(denominator_exponent)
+    # else:
+    #     max_x = np.max(x,axis=1,keepdims=True)
+    #     numerator = np.exp(x - max_x)
+    #     denominator_exponent = np.exp(x- max_x)
+      
+    #     prob = numerator / np.sum(denominator_exponent,axis=1).reshape(max_x.shape)
+    #     print('prob',prob)
+    # return prob
+    #efficient solution
+    if x.ndim == 1:
         max_x = np.max(x)
-        numerator = np.exp(x - max_x)
-        denominator_exponent = np.exp(x- max_x)
-        prob = numerator / np.sum(denominator_exponent)
+        exp_shifted = np.exp(x-max_x)
+        return exp_shifted / np.sum(exp_shifted)
     else:
-        print(x.shape)
-        max_x = np.max(x,axis=1,keepdims=True)
-        print(max_x.shape)
-        numerator = np.exp(x - max_x)
-        denominator_exponent = np.exp(x- max_x)
-        print('num',numerator)
-        print("denom_exp",denominator_exponent)
-        print("sum",np.sum(denominator_exponent,axis=1))
-        prob = numerator / np.sum(denominator_exponent,axis=1).reshape(max_x.shape)
-        print('prob',prob)
-    return prob
+        max_x = np.max(x,axis = 1,keepdims = True)
+        exp_shifted = np.exp(x - max_x)
+        return exp_shifted / np.sum(exp_shifted,axis=1, keepdims=True)
 
  
