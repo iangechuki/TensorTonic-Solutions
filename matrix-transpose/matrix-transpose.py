@@ -12,6 +12,8 @@ def matrix_transpose(A: list) -> np.ndarray:
     n_rows = curr_shape[0]
     A_flattened = flat(A)
     print("flattened A",A_flattened)
+    #2D Row Major -> https://eli.thegreenplace.net/2015/memory-layout-of-multi-dimensional-arrays
+    #offset: i_row * Ncols + i_col
     for i in range(n_cols):
         row = []
         for j in range(n_rows):
